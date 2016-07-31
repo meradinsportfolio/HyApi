@@ -2,7 +2,8 @@
 var LocalStrategy		= require('passport-local').Strategy,
 	FacebookStrategy	= require('passport-facebook').Strategy,
 	TwitterStrategy		= require('passport-twitter').Strategy,
-	GoogleStrategy		= require('passport-google-oauth').OAuth2Strategy;
+	GoogleStrategy		= require('passport-google-oauth').OAuth2Strategy,
+	GithubStrategy		= require('passport-github').Strategy;
 
 // load up the user model
 var User 				= require('../model/user');
@@ -372,6 +373,90 @@ module.exports = function(passport) {
 				user.google.token 						= token;
 				user.google.name 						= profile.displayName;
 				user.google.email 						= profile.emails[0].value; // pull the first email
+
+				// sace the user
+				user.save(function(err) {
+					if (err)
+						throw err;
+					return done(null, user);
+				});
+			}
+
+		});
+
+	}));
+
+	// =========================================================================
+	// GITHUB ==================================================================
+	// =========================================================================
+	passport.use(new GithubStrategy({
+
+		clientID			: configAuth.githubAuth.clientID,
+		clientSecret		: configAuth.githubAuth.clientSecret,
+		callbackURL			: configAuth.githubAuth.callbackURL,
+		passReqToCallback	: true	// allows us to pass in the req from our route (lets us check if a user is logged in or not)
+
+	},
+	function(req, token, refreshToken, profile, done) {
+
+		// make the code asynchronous
+		// User.findOne won't fire until we have all our data back from Google
+		process.nextTick(function() {
+
+			if(!req.user) {
+
+				// try to find the user based on their google id
+				User.findOne({ 'github.id' : profile.id }, function(err, user) {
+
+					if (err)
+						return done(err);
+
+					if (user) {
+
+						// if there is a user id already but no token (user was linked at one point and then removed)
+						// just add our token and profile information
+						if (!user.github.token) {
+							user.github.token 			= token;
+							user.github.name  			= profile.displayName;
+							user.github.email 			= profile._json.email;
+
+							user.save(function(err) {
+								if (err)
+									throw err;
+								return done(null, user);
+							});
+						}
+
+					 	// if a user is found, log them in
+					 	return done(null, user);
+					} else {
+						// if the user isnt in our database, create a new user
+						var newUser						= new User();
+
+						// set all of the relevant information
+						newUser.github.id 				= profile.id;
+						newUser.github.token 			= token;
+						newUser.github.name 			= profile.displayName;
+						newUser.github.email 			= profile._json.email; // pull the first email
+
+						// save the user
+						newUser.save(function(err) {
+							if (err)
+								throw err;
+							return done(null, newUser);
+						});
+					}
+				});
+
+			} else {
+				// user already exists and is logged in, we have to link accounts
+				var user 								= req.user; // pull the user out of the session
+
+				// update the current users facebook credentials
+				user.github.id 							= profile.id;
+				user.github.token 						= token;
+				user.github.name 						= profile.displayName;
+				user.github.email 						= profile._json.email; // pull the first email
 
 				// sace the user
 				user.save(function(err) {

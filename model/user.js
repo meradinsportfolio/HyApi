@@ -25,6 +25,12 @@ var userSchema = new Schema({
 		email: 			{ type: String, required: false },
 		name: 			{ type: String, required: false },
 	},
+	github: {
+		id: 			{ type: String, required: false },
+		token: 			{ type: String, required: false },
+		email: 			{ type: String, required: false },
+		name: 			{ type: String, required: false },
+	},
 	pokemons: [{ type: Schema.Types.ObjectId, ref: 'Pokemon' }],
 	admin: { type: Boolean, required: true, default: false }
 });

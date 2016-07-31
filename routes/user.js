@@ -114,7 +114,18 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			successRedirect 	: '/profile',
 			failureRedirect 	: '/'
 		}));
-
+//needs to be checked
+	// =====================================
+	// GITHUB ROUTES =======================
+	// =====================================
+		// send to google to do the authentication
+		router.get('/auth/github', passport.authenticate('github'));
+		
+		// the callback after google has authenticated the user
+		router.get('/auth/github/callback', passport.authenticate('github', {
+			successRedirect 	: '/profile',
+			failureRedirect 	: '/'
+		}));
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
@@ -163,6 +174,17 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			successRedirect 	: '/profile',
 			failureRedirect 	: '/'
 		}));
+//needs to be checked
+	// github ---------------------------------
+
+		// send to google to do the authentication
+		router.get('/connect/github', passport.authorize('github'));
+
+		// the callback after google has authorized the user
+		router.get('/connect/github/callback', passport.authorize('github', {
+			successRedirect 	: '/profile',
+			failureRedirect 	: '/'
+		}));
 
 // =============================================================================
 // UNLINK ACCOUNTS =============================================================
@@ -203,6 +225,15 @@ router.get('/logout', isLoggedIn, function (req, res) {
 	router.get('/unlink/google', function(req, res) {
 		var user 				= req.user;
 		user.google.token 		= undefined;
+		user.save(function(err) {
+			res.redirect('/profile');
+		});
+	});
+//needs to be checked
+	// github ---------------------------------
+	router.get('/unlink/github', function(req, res) {
+		var user 				= req.user;
+		user.github.token 		= undefined;
 		user.save(function(err) {
 			res.redirect('/profile');
 		});
