@@ -72,8 +72,8 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			
 			// process the signup form
 			router.post('/signup', passport.authenticate('local-signup', {
-				successRedirect : 'user/profile', // redirect to the secure profile section
-				failureRedirect : 'user/signup', // redirect back to the signup page if there is
+				successRedirect : '/user/profile', // redirect to the secure profile section
+				failureRedirect : '/user/signup', // redirect back to the signup page if there is
 				failureFlash	: true // allow flash messages
 			}), function (req, res) {
 				console.log('::POST /user/signup:: accessed');
@@ -87,7 +87,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 		
 		// handle the callback after facebook has authenticated the user
 		router.get('/auth/facebook/callback', passport.authenticate('facebook', {
-			successRedirect 	: 'user/profile',
+			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
 	
@@ -99,7 +99,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 		
 		// handle the callback after twitter has authenticated the user
 		router.get('/auth/twitter/callback', passport.authenticate('twitter', {
-			successRedirect 	: 'user/profile',
+			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
 	
@@ -111,7 +111,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 		
 		// the callback after google has authenticated the user
 		router.get('/auth/google/callback', passport.authenticate('google', {
-			successRedirect 	: 'user/profile',
+			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
 //needs to be checked
@@ -123,7 +123,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 		
 		// the callback after github has authenticated the user
 		router.get('/auth/github/callback', passport.authenticate('github', {
-			successRedirect 	: 'user/profile',
+			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
 
@@ -136,7 +136,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			res.render('connect-local.ejs', { message: req.flash('loginMessage') });
 		});
 		router.post('/connect/local', passport.authenticate('local-signup', {
-			successRedirect 	: 'user/profile', // redirect to the secure profile section
+			successRedirect 	: '/user/profile', // redirect to the secure profile section
 			failureRedirect 	: '/connect/local', // redirect back to the signup page if there is an error
 			failureFlash 		: true // allow flash messages
 		}));
@@ -148,7 +148,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 
 		// handle the callback after facebook has authorized the user
 		router.get('/connect/facebook/callback', passport.authorize('facebook', {
-			successRedirect 	: 'user/profile',
+			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
 
@@ -159,7 +159,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 
 		// handle the callback after twitter has authorized the user
 		router.get('/connect/twitter/callback', passport.authorize('twitter', {
-			successRedirect 	: 'user/profile',
+			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
 
@@ -171,7 +171,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 
 		// the callback after google has authorized the user
 		router.get('/connect/google/callback', passport.authorize('google', {
-			successRedirect 	: 'user/profile',
+			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
 //needs to be checked
@@ -182,7 +182,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 
 		// the callback after google has authorized the user
 		router.get('/connect/github/callback', passport.authorize('github', {
-			successRedirect 	: 'user/profile',
+			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
 
@@ -199,7 +199,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 		user.local.email 		= undefined;
 		user.local.password 	= undefined;
 		user.save(function(err) {
-			res.redirect('user/profile');
+			res.redirect('/user/profile');
 		});
 	});
 
@@ -208,7 +208,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 		var user 				= req.user;
 		user.facebook.token 	= undefined;
 		user.save(function(err) {
-			res.redirect('user/profile');
+			res.redirect('/user/profile');
 		});
 	});
 
@@ -217,7 +217,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 		var user 				= req.user;
 		user.twitter.token 		= undefined;
 		user.save(function(err) {
-			res.redirect('user/profile');
+			res.redirect('/user/profile');
 		});
 	});
 
@@ -226,7 +226,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 		var user 				= req.user;
 		user.google.token 		= undefined;
 		user.save(function(err) {
-			res.redirect('user/profile');
+			res.redirect('/user/profile');
 		});
 	});
 //needs to be checked
@@ -235,7 +235,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 		var user 				= req.user;
 		user.github.token 		= undefined;
 		user.save(function(err) {
-			res.redirect('user/profile');
+			res.redirect('/user/profile');
 		});
 	});
 
