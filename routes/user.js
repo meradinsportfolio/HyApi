@@ -118,10 +118,10 @@ router.get('/logout', isLoggedIn, function (req, res) {
 	// =====================================
 	// GITHUB ROUTES =======================
 	// =====================================
-		// send to google to do the authentication
+		// send to github to do the authentication
 		router.get('/auth/github', passport.authenticate('github'));
 		
-		// the callback after google has authenticated the user
+		// the callback after github has authenticated the user
 		router.get('/auth/github/callback', passport.authenticate('github', {
 			successRedirect 	: '/profile',
 			failureRedirect 	: '/'
