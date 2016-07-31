@@ -107,7 +107,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 	// GOOGLE ROUTES =======================
 	// =====================================
 		// send to google to do the authentication
-		router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+		router.get('/auth/google', passport.authenticate('google'));
 		
 		// the callback after google has authenticated the user
 		router.get('/auth/google/callback', passport.authenticate('google', {
