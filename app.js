@@ -18,10 +18,10 @@ var roles = new ConnectRoles({
 		res.status(401);
 		res.render('noauth');
 	}
+});
 
-roles.use('admin user', function (req) {
-	});
-if(!req.user) { return false; }
+roles.use('admin user', function (req) {	
+	if(!req.user) { return false; }
 	if(req.user.hasAnyRole('admin')) {
 		console.log('admin true');
 		return true;
