@@ -78,7 +78,8 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			}), function (req, res) {
 				console.log('::POST /user/signup:: accessed');
 			});
-	
+
+	// get an internal server error (VM3180:1 Uncaught SecurityError: Blocked a frame with origin "http://s3.amazonaws.com" from accessing a frame with origin "http://hyapi.herokuapp.com". Protocols, domains, and ports must match.)
 	// =====================================
 	// FACEBOOK ROUTES =====================
 	// =====================================
@@ -90,7 +91,8 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
-	
+
+	// works
 	// =====================================
 	// TWITTER ROUTES ======================
 	// =====================================
@@ -102,19 +104,21 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
-	
+
+	// gets an internal server error, currently dont know why	
 	// =====================================
 	// GOOGLE ROUTES =======================
 	// =====================================
 		// send to google to do the authentication
-		router.get('/auth/google', passport.authenticate('google'));
+		router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 		
 		// the callback after google has authenticated the user
 		router.get('/auth/google/callback', passport.authenticate('google', {
 			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}));
-//needs to be checked
+
+	// works, email and username not set
 	// =====================================
 	// GITHUB ROUTES =======================
 	// =====================================
