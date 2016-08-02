@@ -161,8 +161,9 @@ module.exports = function(passport) {
 						// just add our token and profile information
 						if (!user.facebook.token) {
 							user.facebook.token 		= token;
-							user.facebook.name  		= profile.name.givenName + ' ' + profile.name.familyName;
-							user.facebook.email 		= profile.emails[0].value;
+							// user.facebook.name  		= profile.name.givenName + ' ' + profile.name.familyName;
+							user.facebook.name 			= profile.displayName;
+							// user.facebook.email 		= profile.emails[0].value;
 
 							user.save(function(err) {
 								if (err)
@@ -175,12 +176,14 @@ module.exports = function(passport) {
 					} else {
 						// if there is no user found with that facebook id, create them
 						var newUser						= new User();
-
+						console.log(profile);
+						console.log("=====");
 						// set all of the facebook information in our user model
 						newUser.facebook.id				= profile.id; // set the users facebook id                   
-						newUser.facebook.token 			= accessToken; // we will save the token that facebook provides to the user                    
-						newUser.facebook.name 			= profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
-						newUser.facebook.email 			= profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+						newUser.facebook.token 			= token; // we will save the token that facebook provides to the user                    
+						// newUser.facebook.name 			= profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
+						newUser.facebook.name 			= profile.displayName;
+						// newUser.facebook.email 			= profile.emails[0].value; // facebook can return multiple emails so we'll take the first
 
 						// save our user to the database
 						newUser.save(function(err) {
@@ -201,8 +204,9 @@ module.exports = function(passport) {
 				// update the current users facebook credentials
 				user.facebook.id 						= profile.id;
 				user.facebook.token 					= token;
-				user.facebook.name 						= profile.name.givenName + ' ' + profile.name.familyName;
-				user.facebook.email 					= profile.emails[0].value;
+				// user.facebook.name 						= profile.name.givenName + ' ' + profile.name.familyName;
+				user.facebook.name 						= profile.displayName;
+				// user.facebook.email 					= profile.emails[0].value;
 
 				// sace the user
 				user.save(function(err) {

@@ -2,7 +2,7 @@ module.exports = {
 	'facebookAuth' : {
 		'clientID' 		: 	'1104029049662310',
 		'clientSecret' 	: 	'48cf5a88692f8d9504ab5c059c6e4c27',
-		'callbackURL' 	: 	'http://hyapi.herokuapp.com/user/auth/facebook/callback'
+		'callbackURL' 	: 	'http://localhost:3000/user/auth/facebook/callback'
 	},
 	'twitterAuth' : {
 		'consumerKey' 	: 	'OBsHALJ9j6VKFBIQg8NRX1ypg',

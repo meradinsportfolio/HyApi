@@ -84,13 +84,15 @@ router.get('/logout', isLoggedIn, function (req, res) {
 	// FACEBOOK ROUTES =====================
 	// =====================================
 		// send to facebook to do the authentication
-		router.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
+		router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 		
 		// handle the callback after facebook has authenticated the user
 		router.get('/auth/facebook/callback', passport.authenticate('facebook', {
 			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
-		}));
+		}), function (req, res) {
+			console.log('kom ik hier');
+		});
 
 	// works
 	// =====================================
