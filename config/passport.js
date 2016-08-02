@@ -1,8 +1,8 @@
 // load all the things we need
 var LocalStrategy		= require('passport-local').Strategy,
-	FacebookStrategy	= require('passport-facebook').Strategy,
+	FacebookStrategy	= require('passport-facebook').Strategy,			// facebook social signin not working as of yet, problem not in passport.
 	TwitterStrategy		= require('passport-twitter').Strategy,
-	GoogleStrategy		= require('passport-google-oauth').OAuth2Strategy,
+	GoogleStrategy		= require('passport-google-oauth').OAuth2Strategy,	// google social signin not working as of yet, problem not in passport.
 	GithubStrategy		= require('passport-github').Strategy;
 
 // load up the user model
