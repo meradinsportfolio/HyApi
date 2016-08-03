@@ -91,7 +91,6 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			successRedirect 	: '/user/profile',
 			failureRedirect 	: '/'
 		}), function (req, res) {
-			console.log('kom ik hier');
 		});
 
 	// works
