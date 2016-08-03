@@ -111,8 +111,10 @@ router.get('/logout', isLoggedIn, function (req, res) {
 	// GOOGLE ROUTES =======================
 	// =====================================
 		// send to google to do the authentication
-		router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-		
+		// router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+		// need to check if this works
+		router.get('/auth/google', passport.authenticate('google', { scope : ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'] }));
+
 		// the callback after google has authenticated the user
 		router.get('/auth/google/callback', passport.authenticate('google', {
 			successRedirect 	: '/user/profile',
