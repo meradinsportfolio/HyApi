@@ -71,6 +71,7 @@ module.exports = function(passport) {
 					// set the user's local credentials
 					newUser.local.username 				= username;
 					newUser.local.password 				= newUser.generateHash(password);
+					newUser.role						= 'user';
 
 					// save the user
 					newUser.save(function(err) {
@@ -184,6 +185,7 @@ module.exports = function(passport) {
 						// newUser.facebook.name 			= profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
 						newUser.facebook.name 			= profile.displayName;
 						// newUser.facebook.email 			= profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+						newUser.role					= 'user';
 
 						// save our user to the database
 						newUser.save(function(err) {
@@ -207,6 +209,7 @@ module.exports = function(passport) {
 				// user.facebook.name 						= profile.name.givenName + ' ' + profile.name.familyName;
 				user.facebook.name 						= profile.displayName;
 				// user.facebook.email 					= profile.emails[0].value;
+				newUser.role							= 'user';
 
 				// sace the user
 				user.save(function(err) {
@@ -274,6 +277,7 @@ module.exports = function(passport) {
 						newUser.twitter.token 			= token;
 						newUser.twitter.username 		= profile.username;
 						newUser.twitter.displayName 	= profile.displayName;
+						newUser.role					= 'user';
 
 						// save our user into the database
 						newUser.save(function(err) {
@@ -318,9 +322,10 @@ module.exports = function(passport) {
 
 	},
 	function(req, token, refreshToken, profile, done) {
-		console.log('=====');
-		console.log(profile);
-		console.log('=====');
+		// console.log('=====');
+		// console.log(profile);
+		// console.log('=====');
+		
 		// make the code asynchronous
 		// User.findOne won't fire until we have all our data back from Google
 		process.nextTick(function() {
@@ -360,6 +365,7 @@ module.exports = function(passport) {
 						newUser.google.token 			= token;
 						newUser.google.name 			= profile.displayName;
 						newUser.google.email 			= profile.emails[0].value; // pull the first email
+						newUser.role					= 'user';
 
 						// save the user
 						newUser.save(function(err) {
@@ -444,6 +450,7 @@ module.exports = function(passport) {
 						newUser.github.token 			= token;
 						newUser.github.name 			= profile.displayName;
 						newUser.github.email 			= profile._json.email; // pull the first email
+						newUser.role					= 'user';
 
 						// save the user
 						newUser.save(function(err) {

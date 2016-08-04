@@ -20,12 +20,14 @@ var roles = new ConnectRoles({
 	}
 });
 
-roles.use('admin user', function (req) {	
+roles.use('user admin', function (req) {	
 	if(!req.user) { return false; }
 	if(req.user.hasAnyRole('admin')) {
 		console.log('admin true');
 		return true;
 	}
+	return false;
+
 });
 
 roles.use('user user', function (req) {
@@ -52,7 +54,7 @@ db.once('open', function() {
 });
 
 require('./model/user')(mongoose);
-// require('./model/role')(mongoose);
+require('./model/role')(mongoose);
 // require('./model/location')(mongoose);
 // require('./model/pokemon')(mongoose);
 // require('./model/type')(mongoose);
@@ -64,10 +66,10 @@ function handleError(req, res, statusCode, message){
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
+var admin = require('./routes/admin');
 // var map = require('./routes/map');
 // var pokemons = require('./routes/pokemons');
 // var types = require('./routes/types');
-// var admin = require('./routes/admin');
 
 var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
@@ -98,10 +100,11 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/user', users);
+app.use('/admin', roles.can('user admin'), admin);
 // app.use('/map', map);
 // app.use('/pokemon', pokemons);
 // app.use('/type', types);
-// app.use('/admin', admin);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -32,7 +32,7 @@ var userSchema = new Schema({
 		name: 			{ type: String, required: false },
 	},
 	pokemons: [{ type: Schema.Types.ObjectId, ref: 'Pokemon' }],
-	admin: { type: Boolean, required: true, default: false }
+	role: [{ type: Schema.Types.ObjectId, ref: 'Role'}]
 });
 
 userSchema.methods.generateHash = function(password) {
