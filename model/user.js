@@ -32,7 +32,8 @@ var userSchema = new Schema({
 		name: 			{ type: String, required: false },
 	},
 	pokemons: [{ type: Schema.Types.ObjectId, ref: 'Pokemon' }],
-	role: [{ type: Schema.Types.ObjectId, ref: 'Role'}]
+	// role: [{ type: Schema.Types.ObjectId, ref: 'Role'}]
+	role: { type: String, required: true }
 });
 
 userSchema.methods.generateHash = function(password) {
@@ -41,6 +42,13 @@ userSchema.methods.generateHash = function(password) {
 
 userSchema.methods.validPassword = function(password) {
 	return bcrypt.compareSync(password, this.local.password);
+}
+
+userSchema.methods.hasAnyRole = function(_role){
+	if (this.role == _role) {
+		return true;
+	}
+	return false;
 }
 
 module.exports = mongoose.model('User', userSchema);

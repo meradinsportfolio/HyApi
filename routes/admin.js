@@ -12,10 +12,7 @@ var auth = require('../controller/auth');
 // });
 
 router.get('/', function (req, res, next) {
-	if (!req.user) {
-		console.log('::GET /user/ :: accessed');
-		res.render('admin/index');
-	}
+	res.render('admin/index');
 });
 
 // router.get('/locationlist', auth.isAllowed('Admin'), function(req, res){

@@ -15,17 +15,24 @@ var express 		= require('express'),
 
 var roles = new ConnectRoles({
 	failureHandler: function(req, res, event){
-		res.status(401);
-		res.render('noauth');
+		if (req.user) {
+			res.status(403);
+			res.render('403');
+		} else {
+			res.status(401);
+			res.render('401');
+		}
+		
 	}
 });
 
 roles.use('user admin', function (req) {	
-	if(!req.user) { return false; }
+	if(!req.user) { console.log('no login'); return false; }
 	if(req.user.hasAnyRole('admin')) {
 		console.log('admin true');
 		return true;
 	}
+	console.log('admin false');
 	return false;
 
 });
