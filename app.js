@@ -34,9 +34,9 @@ function handleError(req, res, statusCode, message){
 	res.json(message);
 }
 
-var routes = require('./routes/index');
-var users = require('./routes/user');
-var admin = require('./routes/admin');
+var indexRoute = require('./routes/index');
+var userRoute = require('./routes/user');
+var adminRoute = require('./routes/admin');
 // var map = require('./routes/map');
 // var pokemons = require('./routes/pokemons');
 // var types = require('./routes/types');
@@ -59,8 +59,6 @@ app.use(bodyParser.json({
 }));
 app.use(bodyParser.urlencoded({ extended: false, limit: "200mb" }));
 app.use(cookieParser());
-//app.use(expressSession({secret: "pikapika"}));	//
-//app.use(cookieParser());							//
 
 app.use(expressSession({secret: "pikapika", saveUninitialized: true, resave: false}));
 app.use(passport.initialize());
@@ -69,9 +67,9 @@ app.use(passport.session());
 // var auth = require('./controller/auth');			//
 var roles = require('./config/roles')();
 
-app.use('/', routes);
-app.use('/user', users);
-app.use('/admin', roles.can('user admin'), admin);
+app.use('/', indexRoute);
+app.use('/user', userRoute);
+app.use('/admin', roles.can('user admin'), adminRoute);
 // app.use('/map', map);
 // app.use('/pokemon', pokemons);
 // app.use('/type', types);
