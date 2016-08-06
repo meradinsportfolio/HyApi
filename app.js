@@ -7,46 +7,9 @@ var express 		= require('express'),
 	mongoose 		= require('mongoose'),
 	passport 		= require('passport'),
 	expressSession 	= require('express-session'),
-	localStrategy 	= require('passport-local').Strategy,
-	ConnectRoles 	= require('connect-roles'),
 	bCrypt 			= require('bcryptjs'),
 	User,
 	location;
-
-var roles = new ConnectRoles({
-	failureHandler: function(req, res, event){
-		if (req.user) {
-			res.status(403);
-			res.render('403');
-		} else {
-			res.status(401);
-			res.render('401');
-		}
-		
-	}
-});
-
-roles.use('user admin', function (req) {	
-	if(!req.user) { console.log('no login'); return false; }
-	if(req.user.hasAnyRole('admin')) {
-		console.log('admin true');
-		return true;
-	}
-	console.log('admin false');
-	return false;
-
-});
-
-roles.use('user user', function (req) {
-	if(!req.user) { return false; }
-	return true;
-});
-
-roles.use(function (req) {
-	if(req.user.hasAnyRole('admin')) {
-		return true;
-	}
-});
 
 /// Database
 mongoose.connect('mongodb://MeReadin:DataReadin@ds021895.mlab.com:21895/hyapi');
@@ -104,6 +67,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // var auth = require('./controller/auth');			//
+var roles = require('./config/roles')();
 
 app.use('/', routes);
 app.use('/user', users);

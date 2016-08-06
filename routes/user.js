@@ -28,10 +28,8 @@ router.get('/profile', isLoggedIn,  function (req, res, next) {
 
 // route for logging out
 router.get('/logout', isLoggedIn, function (req, res) {
-	console.log(req.get('referrer'));
 	if(req.user) {
 		console.log("::LOGOUT USER:: \n");
-		console.log(req.user);
 		req.logout();
 		res.redirect('/');
 	} else {
