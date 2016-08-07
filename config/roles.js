@@ -6,10 +6,10 @@ module.exports = function() {
 		failureHandler: function(req, res, event){
 			if (req.user) {
 				res.status(403);
-				res.render('403');
+				res.render('403', { title: '403 - Forbidden' });
 			} else {
 				res.status(401);
-				res.render('401');
+				res.render('401', { title: '401 - Unauthorized' });
 			}
 			
 		}

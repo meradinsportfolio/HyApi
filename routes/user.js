@@ -8,7 +8,7 @@ var controller = require('../controller/userController.js');
 router.get('/', function (req, res, next) {
 	if (!req.user) {
 		console.log('::GET /user/ :: accessed');
-		res.render('user/index');
+		res.render('user/index', { title: 'Login authentication' });
 	} else {
 		console.log('::REDIRECT to profile, user is authorized');
 		res.redirect('/');
@@ -19,7 +19,7 @@ router.get('/', function (req, res, next) {
 router.get('/profile', isLoggedIn,  function (req, res, next) {
 	if (req.user) {
 		console.log('::GET /user/profile:: accessed');
-		res.render('user/profile', { user: req.user });
+		res.render('user/profile', { title: 'User profile', user: req.user });
 	} else {
 		console.log('::REDIRECT to profile, user is un-authorized');
 		res.redirect('/user');
@@ -49,7 +49,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			// show the login form
 			router.get('/login', function(req, res, next) {
 				console.log('::GET /user/login:: accessed');
-				res.render('user/login');
+				res.render('user/login', { title: 'Local login'});
 			});
 			
 			// process the login form
@@ -65,7 +65,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 			// show the signup form
 			router.get('/signup', function(req, res, next) {
 				console.log('::GET /user/signup:: accessed')
-				res.render('user/signup');
+				res.render('user/signup', { title: 'Local signup'});
 			});
 			
 			// process the signup form
@@ -137,7 +137,7 @@ router.get('/logout', isLoggedIn, function (req, res) {
 
 	// local ----------------------------------
 		router.get('/connect/local', function(req, res) {
-			res.render('connect-local.ejs', { message: req.flash('loginMessage') });
+			res.render('connect-local.ejs', { title: 'Connect local', message: req.flash('loginMessage') });
 		});
 		router.post('/connect/local', passport.authenticate('local-signup', {
 			successRedirect 	: '/user/profile', // redirect to the secure profile section

@@ -12,7 +12,7 @@ var auth = require('../controller/auth');
 // });
 
 router.get('/', function (req, res, next) {
-	res.render('admin/index');
+	res.render('admin/index', { title: 'Admin home' });
 });
 
 // router.get('/locationlist', auth.isAllowed('Admin'), function(req, res){
