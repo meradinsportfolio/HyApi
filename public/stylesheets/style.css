@@ -7,3 +7,69 @@
 body {
 	padding-top: 80px;
 }
+
+:root {
+	var-tenPercent: 10%;
+}
+
+
+/* chatbox container */
+.chatContainer {
+	height: 500px;
+	/*min-height: 500px;*/
+	/*max-height: 1000px;*/
+}
+
+.chat {
+	border-radius: 12px;
+	border: 2px solid;
+	height: 100%;
+	background-color: #94D7FE;
+}
+	/* chat information */
+	.chatHeader {
+		border: 2px solid;
+		margin-top: 2.5%;
+		height: 10%;
+		width: 90%;
+		top: 0;
+		position: absolute;
+		background-color: #FFFFFF;
+	}
+	/* chat messages container */
+	.chatMessages {
+		border: 2px solid;
+		width: 90%;
+		top: 12.5%;
+		bottom: 22.5%;
+		position: absolute;
+		overflow-y: scroll;
+		background-color: #FFFFFF;
+	}
+	
+		.chatMessageContainer {
+			list-style-type: none;
+			/*border: 1px solid;*/
+		}
+	
+	/* chat input container */
+	.chatInput {
+		border: 2px solid;
+		margin-bottom: 2.5%;
+		height: 20%;
+		width: 90%;
+		bottom: 0;
+		position: absolute;
+		background-color: #FFFFFF;
+	}
+	
+		.inputMessage {
+			height: 100%;
+			overflow: auto;
+			resize: none;
+		}
+		
+		.inputBtn {
+			height: 100%;
+			text-align: center;
+		}		

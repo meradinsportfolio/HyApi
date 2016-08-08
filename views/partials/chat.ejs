@@ -1,0 +1,28 @@
+<div class="chatContainer">
+	<div class="col-sm-3 col-sm-offset-3 chat">
+	
+		<div class="chatHeader" id="chatHeader">
+	
+		</div>
+	
+		<div class="chatMessages" id="chatMessages">
+	
+			<ul class="chatMessageContainer" id="chatMessageContainer">
+	
+			</ul>
+	
+		</div>
+	
+		<div class="chatInput" id="chatInput">
+			<textarea class="inputMessage col-sm-9" id="inputMessage" rows="3" cols="20" placeholder="Type here..."></textarea>
+			<button class="inputBtn col-sm-3" id="inputBtn" >Send</button>
+			<!-- <input type="button" class="inputBtn col-sm-3" id="inputBtn" onclick"sendMessage()" value="Send" /> -->
+
+			<!-- <button id="aaaa" onclick="myFunction()">Click me</button> -->
+		</div>
+	
+	</div>
+</div>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="/javascripts/chat.js"></script>
