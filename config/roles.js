@@ -17,7 +17,7 @@ module.exports = function() {
 	
 	roles.use('user admin', function (req) {	
 		if(!req.user) { console.log('no login'); return false; }
-		if(req.user.hasAnyRole('admin')) {
+		if(req.user.hasRole('admin')) {
 			console.log('admin true');
 			return true;
 		}
@@ -32,7 +32,7 @@ module.exports = function() {
 	});
 	
 	roles.use(function (req) {
-		if(req.user.hasAnyRole('admin')) {
+		if(req.user.hasRole('admin')) {
 			return true;
 		}
 	});

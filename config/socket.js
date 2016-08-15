@@ -19,7 +19,7 @@ module.exports.listen = function (server) {
 			socket.broadcast.to(roomName).emit('joinedChat', { username: username });
 		});
 
-		socket.on('disconnect', function (roomName) {
+		socket.on('disconnect', function (roomName, username) {
 
 			io.to(roomName).emit('leftChat', { username: 'admin' });
 		});

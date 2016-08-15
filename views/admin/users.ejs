@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<% include ../partials/head %>
+<body>
+	<% include ../partials/header %>
+	<div class="container">
+	
+		<div class="jumbotron text-center">
+			<h1><span class="fa"></span> Admin userlist</h1>
+
+		</div>
+	
+		<div class="row">
+
+			<!-- userlist -->
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Local</th>
+						<th>Facebook</th>
+						<th>Twitter</th>
+						<th>Github</th>
+						<th>Role</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				<% users.forEach(function (user) { %>
+					<tr>
+						<td><%= user.local.username %></td>
+						<td><%= user.facebook.name %></td>
+						<td><%= user.twitter.username %></td>
+						<td><%= user.github.name %></td>
+						<td><%= user.role %></td>
+						<td><a href="/admin/users/<%= user._id %>/update" class="btn btn-info">
+								<span class="fa fa-search"></span>
+							</a>
+							<a href='/admin/users/<%= user._id %>/delete' class="btn btn-danger">
+								<span class="fa fa-trash-o"></span>
+							</a>
+						</td>
+					<tr>
+				<% }); %>
+				</tbody>
+			</table>
+			
+		</div>
+	</div>
+	<% include ../partials/footer %>
+</body>
+</html>

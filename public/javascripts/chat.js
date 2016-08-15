@@ -1,25 +1,22 @@
 var socket;
-console.log('asdasd');
+
+var username = $("#userId").val();
+var roomName = $("#roomId").val();
+
 ioConnect();
 function ioConnect() {
 	$(document).ready(function () { 
 		socket = io.connect('http://localhost:3000');
-		console.log('CLIENT:: client trying to connect');
-		var username = 'admin';
-		var roomName = 'admin';
+
 		connectChat(roomName, username);
 
 		$('#inputBtn').click(function () {
 			console.log('message sent');
 			var message = $("#inputMessage").val();
 
-			// $('#chatMessageContainer').append += "<li class='messageSent'>" 
-			// 										+ "<p class='username'>User: " + username + "</p>" 
-			// 										+ "<p class='message'>" + message + "</p>" 
-			// 									+ "</li>";
 			$('#chatMessageContainer').append("<li class='messageSent'>" 
 													+ "<p class='message'>" 
-														+ "<span class='user'>User: " + username + "</span>"
+														+ "<span class='username'>User: " + username + "</span>"
 														+ "<span class='message'>" + message + "</span>"
 													+ "</p>" 
 												+ "</li>");
@@ -57,7 +54,7 @@ function ioConnect() {
 }
 
 function ioDisconnect () {
-	socket.emit('disconnect', 'admin');
+	socket.emit('disconnect', username, roomName);
 }
 	
 function connectChat (room, username) {

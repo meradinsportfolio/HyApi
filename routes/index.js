@@ -19,9 +19,4 @@ router.get('/logout', function (res, res, next) {
 	res.redirect('/');
 });
 
-router.get('/chat', function (req, res, next) {
-	// res.render('partials/page', { title: 'Chat', user: req.user });
-	res.render('partials/page', { title: 'Chat' });
-});
-
 module.exports = router;

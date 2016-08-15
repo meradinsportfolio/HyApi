@@ -8,11 +8,36 @@ body {
 	padding-top: 80px;
 }
 
-:root {
-	var-tenPercent: 10%;
+/* IMAGES CSS START*/
+.ci {
+	display: inline-block;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-image: url(../images/pkball_icon.png);
+}
+.pokeball-icon {
+	width: 24px;
+	height: 24px;
+	background-position: -0px -0px;
 }
 
 
+/* IMAGES CSS END*/
+
+/* ADMIN CSS START */
+
+.btnSeparator {
+	margin-bottom: 30px;
+}
+
+.cstmBtn {
+	padding: 40px;
+}
+
+/* ADMIN CSS END */
+
+
+/* CHAT CSS START */
 /* chatbox container */
 .chatContainer {
 	height: 500px;
@@ -51,7 +76,41 @@ body {
 			list-style-type: none;
 			/*border: 1px solid;*/
 		}
+
+			.messageSent {
 	
+			}
+
+			.messageReceived {
+
+			}
+
+			.messageJoinedChat {
+
+			}
+			.messageLeftChat {
+
+			}
+
+				.message {
+
+				}
+					.username {
+
+					}
+
+					.message {
+
+					}
+
+					.userJoin {
+
+					}
+
+					.userLeft {
+
+					}
+
 	/* chat input container */
 	.chatInput {
 		border: 2px solid;
@@ -73,3 +132,5 @@ body {
 			height: 100%;
 			text-align: center;
 		}		
+
+/* CHAT CSS END */

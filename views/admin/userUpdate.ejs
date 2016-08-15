@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<% include ../partials/head %>
+<body>
+	<% include ../partials/header %>
+	<div class="container">
+	
+		<div class="jumbotron text-center">
+			<h1><span class="fa"></span> User update: <%= user.name %></h1>
+
+		</div>
+	
+		<div class="row">
+			<div class="col-sm-12">
+				<form action='/admin/users/<%= user._id %>/update' method="post">
+	
+					<div class="form-group">
+						<label>Role</label>
+						<select name="role">
+							<% roles.forEach(function (role) { %>
+								<option value='<%= role.name %>' <% if (role.name == user.role) { %> selected="selected" <% } %>><%= role.name	 %></option>
+							<% }); %>
+						</select>
+					</div>
+					<div class="col-sm-offset-11">
+						<button type="submit" class="btn btn-warning btn lg">Save</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<div class="row">
+
+			<!-- pokemon caught list -->
+			<div class="col-sm-6">
+				<h1><span class="fa center"></span> Caught pokemon</h1>
+			
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Number:</th>
+							<th>Name:</th>
+						</tr>
+					</thead>
+					<tbody>
+					<% user.pokemons.forEach(function (pokemon) { %>
+						<tr>
+							<td><%= pokemon.pid %></td>
+							<td><%= pokemon.name %></td>
+						<tr>
+					<% }); %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	<% include ../partials/footer %>
+</body>
+</html>

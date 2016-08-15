@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<% include ../partials/head %>
+<body>
+	<% include ../partials/header %>
+	<div class="container">
+	
+		<div class="jumbotron text-center">
+			<h1><span class="fa"></span> Admin pokemon</h1>
+
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<a href='/admin/pokemons/fillpokedex' class="btn btn-primary">
+					<span class="fa fa-plus"> fill pokedex</span>
+				</a>
+			</div>
+
+			<div class="col-sm-7 col-sm-offset-1">
+				<div class="col-sm-5">
+					<h2>Location info</h2>
+					<strong>Id:</strong>
+					<span id='locationInfoPid'></span>
+					<br>
+	
+					<strong>Name:</strong>
+					<span id='locationInfoName'></span>
+					<br>
+	
+					<strong>Lat:</strong>
+					<span id='locationInfoLat'></span>
+					<br>
+	
+					<strong>Lng:</strong>
+					<span id='locationInfoLng'></span>
+				</div>
+
+				<div class="col-sm-7">
+					<h2>Add Location</h2>
+					<form action='/pokemons' method="post">
+						<div class="form-group">
+							<input type="text" name="inputLocationPid" placeholder="Pokemon id">
+							<input type="text" name="inputLocationName" placeholder="Name">
+							<br>
+							<input type="text" name="inputLocationLat" placeholder="Lat">
+							<input type="text" name="inputLocationLng" placeholder="Lng">
+						</div>
+
+						<button type="submit" class="btn btn-warning btn-sm">Add location</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			
+			<!-- pokemon list -->
+			<div class="col-sm-4">
+				<h2>Pokedex</h2>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Number</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+					<% pokemons.forEach(function (pokemon) { %>
+						<tr>
+							<td><%= pokemon.pid %></td>
+							<td><%= pokemon.name %></td>
+						<tr>
+					<% }); %>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- pokemon location list -->
+			<div class="col-sm-5 col-sm-offset-1">
+				<h2>Pokemon location list</h2>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Number</th>
+							<th>Name</th>
+							<th>Lat</th>
+							<th>Lng</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					<% pokeLocations.forEach(function (pokeloc) { %>
+						<tr>
+							<td><%= pokeloc.pid %></td>
+							<td><a href="#" class="linkshowlocation" rel='<%= pokeloc.name %>'><%= pokeloc.name %></a></td>
+							<td><%= pokeloc.lat %></td>
+							<td><%= pokeloc.lng %></td>
+							<td><a href="#" class="linkdeletelocation" rel='<%= pokeloc.pid %>'>delete</a></td>
+						<tr>
+					<% }); %>
+					</tbody>
+				</table>
+
+			</div>
+			
+		</div>
+	</div>
+	<script type="text/javascript" src="/javascripts/global.js"></script>
+	<% include ../partials/footer %>
+</body>
+</html>

@@ -31,6 +31,7 @@ var userSchema = new Schema({
 		email: 			{ type: String, required: false },
 		name: 			{ type: String, required: false },
 	},
+	name: { type: String, required: true },
 	pokemons: [{ type: Schema.Types.ObjectId, ref: 'Pokemon' }],
 	// role: [{ type: Schema.Types.ObjectId, ref: 'Role'}]
 	role: { type: String, required: true }
@@ -44,11 +45,19 @@ userSchema.methods.validPassword = function(password) {
 	return bcrypt.compareSync(password, this.local.password);
 }
 
-userSchema.methods.hasAnyRole = function(_role){
+userSchema.methods.hasRole = function(_role) {
 	if (this.role == _role) {
 		return true;
 	}
 	return false;
+}
+
+userSchema.methods.getRole = function() {
+	return this.role;
+}
+
+userSchema.methods.getName = function() {
+	return this.role;
 }
 
 module.exports = mongoose.model('User', userSchema);
