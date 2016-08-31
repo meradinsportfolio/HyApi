@@ -12,23 +12,24 @@ function ioConnect() {
 
 		$('#inputBtn').click(function () {
 			console.log('message sent');
+
 			var message = $("#inputMessage").val();
 
 			$('#chatMessageContainer').append("<li class='messageSent'>" 
 													+ "<p class='message'>" 
-														+ "<span class='username'>User: " + username + "</span>"
+														+ "<span class='username'>" + username + ": </span>"
 														+ "<span class='message'>" + message + "</span>"
 													+ "</p>" 
 												+ "</li>");
 
 			$("#inputMessage").val('');
-			
+
 			socket.emit('sendMessage', roomName, username, message);
 		});
 		socket.on('receiveMessage', function (data) {
 			$('#chatMessageContainer').append("<li class='messageReceived'>" 
 													+ "<p class='message'>" 
-														+ "<span class='username'>User: " + data.username + "</span>"
+														+ "<span class='username'>" + data.username + ": </span>"
 														+ "<span class='message'>" + data.message + "</span>"
 													+ "</p>" 
 												+ "</li>");
@@ -37,7 +38,7 @@ function ioConnect() {
 		socket.on('joinedChat', function (data) {
 			$('#chatMessageContainer').append("<li class='messageJoinedChat'>" 
 													+ "<p class='message'>"
-														+ "<span class='userJoin'>User: " + data.username + " has joined the chat.</span>"
+														+ "<span class='userJoin'>" + data.username + ": has joined the chat.</span>"
 													+"</p>" 
 												+ "</li>");
 		});
@@ -45,7 +46,7 @@ function ioConnect() {
 		socket.on('leftChat', function (data) {
 			$('#chatMessageContainer').append("<li class='messageLeftChat'>" 
 													+ "<p class='message'>"
-														+ "<span class='userLeft'>User: " + data.username + " has left the chat.</span>"
+														+ "<span class='userLeft'>" + data.username + ": has left the chat.</span>"
 													+"</p>" 
 												+ "</li>");
 		});
