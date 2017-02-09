@@ -8,8 +8,8 @@ var express 		= require('express'),
 	passport 		= require('passport'),
 	expressSession 	= require('express-session'),
 	bCrypt 			= require('bcryptjs'),
-	User;
-	// location;
+	User,
+	location;
 
 /// Database
 mongoose.connect('mongodb://MeReadin:DataReadin@ds021895.mlab.com:21895/hyapi');
