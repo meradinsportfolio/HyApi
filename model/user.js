@@ -57,7 +57,7 @@ userSchema.methods.getRole = function() {
 }
 
 userSchema.methods.getName = function() {
-	return this.role;
+	return this.name;
 }
 
 module.exports = mongoose.model('User', userSchema);
