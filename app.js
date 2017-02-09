@@ -25,8 +25,8 @@ db.once('open', function() {
 
 require('./model/user')(mongoose);
 require('./model/role')(mongoose);
-require('./model/location')(mongoose);
-require('./model/pokemon')(mongoose);
+// require('./model/location')(mongoose);
+// require('./model/pokemon')(mongoose);
 // require('./model/type')(mongoose);
 
 function handleError(req, res, statusCode, message){
@@ -39,7 +39,7 @@ var userRoute = require('./routes/user');
 var adminRoute = require('./routes/admin');
 var chatRoute = require('./routes/chat');
 // var map = require('./routes/map');
-var pokemonRoute = require('./routes/pokemon');
+// var pokemonRoute = require('./routes/pokemon');
 // var types = require('./routes/types');
 
 var app = express();
@@ -73,7 +73,7 @@ app.use('/user', userRoute);
 app.use('/admin', roles.can('admin'), adminRoute);
 app.use('/chat', chatRoute);
 // app.use('/map', map);
-app.use('/pokemon', pokemonRoute);
+// app.use('/pokemon', pokemonRoute);
 // app.use('/type', types);
 
 
