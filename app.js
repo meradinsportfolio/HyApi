@@ -70,7 +70,7 @@ var roles = require('./config/roles')();
 
 app.use('/', indexRoute);
 app.use('/user', userRoute);
-app.use('/admin', roles.can('user admin'), adminRoute);
+app.use('/admin', roles.can('admin'), adminRoute);
 app.use('/chat', chatRoute);
 // app.use('/map', map);
 app.use('/pokemon', pokemonRoute);

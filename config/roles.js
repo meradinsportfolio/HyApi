@@ -15,7 +15,7 @@ module.exports = function() {
 		}
 	});
 	
-	roles.use('user admin', function (req) {	
+	roles.use('admin', function (req) {	
 		if(!req.user) { console.log('no login'); return false; }
 		if(req.user.hasRole('admin')) {
 			console.log('admin true');
@@ -26,16 +26,16 @@ module.exports = function() {
 	
 	});
 	
-	roles.use('user user', function (req) {
+	roles.use('user', function (req) {
 		if(!req.user) { return false; }
 		return true;
 	});
 	
-	roles.use(function (req) {
-		if(req.user.hasRole('admin')) {
-			return true;
-		}
-	});
+	// roles.use(function (req) {
+	// 	if(req.user.hasRole('admin')) {
+	// 		return true;
+	// 	}
+	// });
 
 	return roles;
 };
