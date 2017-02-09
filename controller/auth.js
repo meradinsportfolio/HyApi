@@ -3,7 +3,7 @@ var User = require('mongoose').model('User');
 exports.isAllowed = function(role) {
 	return function(req, res, next) {
 		if(req.isAuthenticated()) {
-			if (role == 'Admin') {
+			if (role == 'admin') {
 				if(req.user.isAdmin) {
 					return next();
 				} else {
