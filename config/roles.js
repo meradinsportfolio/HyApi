@@ -37,11 +37,11 @@ module.exports = function() {
 		return true;
 	});
 	
-	roles.use(function (req) {
-		if(req.user.hasRole('admin')) {
-			return true;
-		}
-	});
+	// roles.use(function (req) {
+	// 	if(req.user.hasRole('admin')) {
+	// 		return true;
+	// 	}
+	// });
 
 	return roles;
 };

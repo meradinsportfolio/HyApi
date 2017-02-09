@@ -151,8 +151,6 @@ router.post('/users/:id/:action', function (req, res, next) {
 // 	});
 // });
 
-
-
 // function getPokemon(req, res, callback){
 // 	var startDate = new Date();
 // 	var options = {
