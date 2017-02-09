@@ -19,4 +19,5 @@ module.exports = {
 		'clientSecret' 	: 	'7a595acadc361275b950948bd781b84d21b1557a',
 		'callbackURL' 	: 	'http://hyapi.herokuapp.com/user/auth/github/callback'
 	}
+	// add twitch
 };

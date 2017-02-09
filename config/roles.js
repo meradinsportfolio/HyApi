@@ -6,16 +6,22 @@ module.exports = function() {
 		failureHandler: function(req, res, event){
 			if (req.user) {
 				res.status(403);
-				res.render('403', { title: '403 - Forbidden' });
+				res.render('error', { 
+					title: '403 - Forbidden',
+					pageTitle: '403 - Forbidden'
+				});
 			} else {
 				res.status(401);
-				res.render('401', { title: '401 - Unauthorized' });
+				res.render('error', { 
+					title: '401 - Unauthorized',
+					pageTitle: '401 - Unauthorized'
+				});
 			}
 			
 		}
 	});
 	
-	roles.use('user admin', function (req) {	
+	roles.use('admin', function (req) {	
 		if(!req.user) { console.log('no login'); return false; }
 		if(req.user.hasRole('admin')) {
 			console.log('admin true');
@@ -26,7 +32,7 @@ module.exports = function() {
 	
 	});
 	
-	roles.use('user user', function (req) {
+	roles.use('user', function (req) {
 		if(!req.user) { return false; }
 		return true;
 	});

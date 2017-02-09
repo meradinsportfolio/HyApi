@@ -2,7 +2,7 @@
 var LocalStrategy		= require('passport-local').Strategy,
 	FacebookStrategy	= require('passport-facebook').Strategy,			// facebook social signin not working as of yet, problem not in passport.
 	TwitterStrategy		= require('passport-twitter').Strategy,
-	GoogleStrategy		= require('passport-google-oauth').OAuth2Strategy,	// google social signin not working as of yet, problem not in passport.
+	GoogleStrategy		= require('passport-google-oauth2').Strategy,	// google social signin not working as of yet, problem not in passport.
 	GithubStrategy		= require('passport-github').Strategy;
 
 // load up the user model
@@ -293,13 +293,13 @@ module.exports = function(passport) {
 				// user already exists and is logged in, we have to link accounts
 				var user 								= req.user; // pull the user out of the session
 
-				// update the current users facebook credentials
+				// update the current users twitter credentials
 				user.twitter.id							= profile.id;
 				user.twitter.token 						= token;
 				user.twitter.username 					= profile.username;
 				user.twitter.displayName 				= profile.displayName;
 
-				// sace the user
+				// save the user
 				user.save(function(err) {
 					if (err)
 						throw err;
@@ -323,80 +323,81 @@ module.exports = function(passport) {
 
 	},
 	function(req, token, refreshToken, profile, done) {
-		// console.log('=====');
+		console.log('=====');
 		// console.log(profile);
 		// console.log('=====');
 		
 		// make the code asynchronous
 		// User.findOne won't fire until we have all our data back from Google
-		process.nextTick(function() {
+// 		process.nextTick(function() {
 
-			if(!req.user) {
+// 			if(!req.user) {
 
-				// try to find the user based on their google id
-				User.findOne({ 'google.id' : profile.id }, function(err, user) {
+// 				// try to find the user based on their google id
+// 				User.findOne({ 'google.id' : profile.id }, function(err, user) {
 
-					if (err)
-						return done(err);
+// 					if (err)
+// 						return done(err);
 
-					if (user) {
+// 					if (user) {
 
-						// if there is a user id already but no token (user was linked at one point and then removed)
-						// just add our token and profile information
-						if (!user.google.token) {
-							user.google.token 			= token;
-							user.google.name  			= profile.displayName;
-							user.google.email 			= profile.emails[0].value;
+// 						// if there is a user id already but no token (user was linked at one point and then removed)
+// 						// just add our token and profile information
+// 						if (!user.google.token) {
+// 							user.google.token 			= token;
+// 							user.google.name  			= profile.displayName;
+// 							user.google.email 			= profile.emails[0].value;
 
-							user.save(function(err) {
-								if (err)
-									throw err;
-								return done(null, user);
-							});
-						}
+// 							user.save(function(err) {
+// 								if (err)
+// 									throw err;
+// 								return done(null, user);
+// 							});
+// 						}
 
-					 	// if a user is found, log them in
-					 	return done(null, user);
-					} else {
-						// if the user isnt in our database, create a new user
-						var newUser						= new User();
+// 					 	// if a user is found, log them in
+// 					 	return done(null, user);
+// 					} else {
+// 						// if the user isnt in our database, create a new user
+// 						var newUser						= new User();
 
-						// set all of the relevant information
-						newUser.google.id 				= profile.id;
-						newUser.google.token 			= token;
-						newUser.google.name 			= profile.displayName;
-						newUser.google.email 			= profile.emails[0].value; // pull the first email
-						newUser.role					= 'user';
-						newUser.name 					= profile.displayName;
+// 						// set all of the relevant information
+// 						newUser.google.id 				= profile.id;
+// 						newUser.google.token 			= token;
+// 						newUser.google.name 			= profile.displayName;
+// 						newUser.google.email 			= profile.emails[0].value; // pull the first email
+// 						newUser.role					= 'user';
+// 						newUser.name 					= profile.displayName;
 
-						// save the user
-						newUser.save(function(err) {
-							if (err)
-								throw err;
-							return done(null, newUser);
-						});
-					}
-				});
+// 						// save the user
+// 						newUser.save(function(err) {
+// 							if (err)
+// 								throw err;
+// 							return done(null, newUser);
+// 						});
+// 					}
+// 				});
 
-			} else {
-				// user already exists and is logged in, we have to link accounts
-				var user 								= req.user; // pull the user out of the session
+// 			} else {
+// 				// user already exists and is logged in, we have to link accounts
+// 				var user 								= req.user; // pull the user out of the session
+// // console.log('===');
+// 				// update the current users google credentials
+// 				// console.log(profile.id);
+// 				user.google.id 							= profile.id;
+// 				user.google.token 						= token;
+// 				user.google.name 						= profile.displayName;
+// 				user.google.email 						= profile.emails[0].value; // pull the first email
+// // console.log('/===');
+// 				// save the user
+// 				// user.save(function(err) {
+// 				// 	if (err)
+// 				// 		throw err;
+// 				// 	return done(null, user);
+// 				// });
+// 			}
 
-				// update the current users facebook credentials
-				user.google.id 							= profile.id;
-				user.google.token 						= token;
-				user.google.name 						= profile.displayName;
-				user.google.email 						= profile.emails[0].value; // pull the first email
-
-				// sace the user
-				user.save(function(err) {
-					if (err)
-						throw err;
-					return done(null, user);
-				});
-			}
-
-		});
+// 		});
 
 	}));
 
@@ -468,13 +469,13 @@ module.exports = function(passport) {
 				// user already exists and is logged in, we have to link accounts
 				var user 								= req.user; // pull the user out of the session
 
-				// update the current users facebook credentials
+				// update the current users github credentials
 				user.github.id 							= profile.id;
 				user.github.token 						= token;
 				user.github.name 						= profile.displayName;
 				user.github.email 						= profile._json.email; // pull the first email
 
-				// sace the user
+				// save the user
 				user.save(function(err) {
 					if (err)
 						throw err;

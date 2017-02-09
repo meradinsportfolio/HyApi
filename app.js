@@ -7,40 +7,21 @@ var express 		= require('express'),
 	mongoose 		= require('mongoose'),
 	passport 		= require('passport'),
 	expressSession 	= require('express-session'),
-	bCrypt 			= require('bcryptjs'),
-	User,
-	location;
+	bCrypt 			= require('bcryptjs');
 
 /// Database
-mongoose.connect('mongodb://MeReadin:DataReadin@ds021895.mlab.com:21895/hyapi');
-var db = mongoose.connection;
-
-db.on('error', function (msg) {
-	console.log("db connection failed.");
-});
-
-db.once('open', function() {
-	console.log("db connection succeeded.");
-});
-
-require('./model/user')(mongoose);
-require('./model/role')(mongoose);
-require('./model/location')(mongoose);
-require('./model/pokemon')(mongoose);
-// require('./model/type')(mongoose);
+require('./config/database')(mongoose);
 
 function handleError(req, res, statusCode, message){
 	res.status(statusCode);
 	res.json(message);
 }
 
+/// Routes
 var indexRoute = require('./routes/index');
 var userRoute = require('./routes/user');
 var adminRoute = require('./routes/admin');
 var chatRoute = require('./routes/chat');
-// var map = require('./routes/map');
-var pokemonRoute = require('./routes/pokemon');
-// var types = require('./routes/types');
 
 var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
@@ -65,17 +46,12 @@ app.use(expressSession({secret: "pikapika", saveUninitialized: true, resave: fal
 app.use(passport.initialize());
 app.use(passport.session());
 
-// var auth = require('./controller/auth');			//
 var roles = require('./config/roles')();
 
 app.use('/', indexRoute);
 app.use('/user', userRoute);
-app.use('/admin', roles.can('user admin'), adminRoute);
+app.use('/admin', roles.can('admin'), adminRoute);
 app.use('/chat', chatRoute);
-// app.use('/map', map);
-app.use('/pokemon', pokemonRoute);
-// app.use('/type', types);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -91,7 +67,9 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
 	app.use(function(err, req, res, next) {
 		res.status(err.status || 500);
-		res.render('error', {
+		res.render('AppError', {
+			title: 'Error - Something went wrong',
+			pageTitle: 'Error - Something went wrong',
 			message: err.message,
 			error: err
 		});
@@ -102,11 +80,12 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
-	res.render('error', {
+	res.render('appError', {
+		title: 'Error - Something went wrong',
+		pageTitle: 'Error - Something went wrong',
 		message: err.message,
 		error: {}
 	});
 });
-
 
 module.exports = app;

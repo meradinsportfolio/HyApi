@@ -32,7 +32,7 @@ var userSchema = new Schema({
 		name: 			{ type: String, required: false },
 	},
 	name: { type: String, required: true },
-	pokemons: [{ type: Schema.Types.ObjectId, ref: 'Pokemon' }],
+	// pokemons: [{ type: Schema.Types.ObjectId, ref: 'Pokemon' }],
 	// role: [{ type: Schema.Types.ObjectId, ref: 'Role'}]
 	role: { type: String, required: true }
 });
@@ -57,7 +57,7 @@ userSchema.methods.getRole = function() {
 }
 
 userSchema.methods.getName = function() {
-	return this.role;
+	return this.name;
 }
 
 module.exports = mongoose.model('User', userSchema);

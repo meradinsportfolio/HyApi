@@ -3,7 +3,7 @@ var User = require('mongoose').model('User');
 exports.isAllowed = function(role) {
 	return function(req, res, next) {
 		if(req.isAuthenticated()) {
-			if (role == 'Admin') {
+			if (role == 'admin') {
 				if(req.user.isAdmin) {
 					return next();
 				} else {
@@ -26,8 +26,10 @@ function showError(errMsg, code, req, res){
 		res.status(code).json({message: errMsg});
 	} else {
 		res.render('error', {
-			message: errMsg,
-			error: code
+			title: code + ' - ' + errMsg,
+			pageTitle: code + ' - ' + errMsg
+			// message: errMsg,
+			// error: code
 		});
 	}
 }
